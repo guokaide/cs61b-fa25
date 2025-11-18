@@ -1,3 +1,6 @@
+/**
+ * a naked linked list: each node is the list itself.
+ */
 public class IntList {
     int first;
     IntList rest;
@@ -42,8 +45,13 @@ public class IntList {
      * This method is non-destructive, i.e. it must not modify the original list.
      */
     public static IntList incrRecursiveNondestructive(IntList L, int x) {
-        // TODO: Fill in this code
-        return null;
+        // L: 5 - 7 - 9 - null
+        // M: 7 - 9 - 11 - null
+        // sub problem: IntList M.rest = incrRecursiveNondestructive(IntList L.rest, int x)
+        if (L == null) {
+            return null;
+        }
+        return new IntList(L.first + x, incrRecursiveNondestructive(L.rest, x));
     }
 
     /**
@@ -52,8 +60,12 @@ public class IntList {
      * You are not allowed to use "new" in this method.
      */
     public static IntList incrRecursiveDestructive(IntList L, int x) {
-        // TODO: Fill in this code
-        return null;
+        if (L == null) {
+            return null;
+        }
+        L.first = L.first + x;
+        incrRecursiveDestructive(L.rest, x);
+        return L;
     }
 
     /**
@@ -62,8 +74,17 @@ public class IntList {
      * to use recursion. May not modify the original list.
      */
     public static IntList incrIterativeNondestructive(IntList L, int x) {
-        // TODO: Fill in this code
-        return null;
+        if (L == null) {
+            return null;
+        }
+        IntList M = new IntList(L.first + x, null);
+        IntList p = L.rest, q = M;
+        while (p != null) {
+            q.rest = new IntList(p.first + x, null);
+            p = p.rest;
+            q = q.rest;
+        }
+        return M;
     }
 
     /**
@@ -73,8 +94,15 @@ public class IntList {
      * You are not allowed to use "new" in this method.
      */
     public static IntList incrIterativeDestructive(IntList L, int x) {
-        // TODO: Fill in this code
-        return null;
+        if (L == null) {
+            return null;
+        }
+        IntList p = L;
+        while (p != null) {
+            p.first = p.first + x;
+            p = p.rest;
+        }
+        return L;
     }
 
     /**
@@ -82,8 +110,18 @@ public class IntList {
      * elements of L2.
      */
     public static IntList concatenate(IntList L1, IntList L2) {
-        // TODO: Fill in this code
-        return null;
+        if (L1 == null) {
+            return L2;
+        }
+        if (L2 == null) {
+            return L1;
+        }
+        IntList p = L1;
+        while (p.rest != null) {
+            p = p.rest;
+        }
+        p.rest = L2;
+        return L1;
     }
 
     /*
@@ -96,15 +134,21 @@ public class IntList {
      * Returns the sum of all elements in the IntList.
      */
     public int sum() {
-        // Optional: Fill in this code
-        return 0;
+        if (rest == null) {
+            return first;
+        }
+        return first + rest.sum();
     }
 
     /**
      * Destructively adds x to the end of the list.
      */
     public void addLast(int x) {
-        // Optional: Fill in this code
+        IntList p = this;
+        while (p.rest != null) {
+            p = p.rest;
+        }
+        p.rest = new IntList(x, null);
     }
 
     /**
@@ -114,6 +158,7 @@ public class IntList {
      * be destructive.
      */
     public void addFirst(int x) {
-        // Optional: Fill in this code
+        rest = new IntList(first, rest);
+        first = x;
     }
 }
