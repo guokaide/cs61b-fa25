@@ -1,6 +1,6 @@
 package lec04;
 
-/** An lec04.SLList is a list of integers, which hides the terrible truth
+/** An SLList (single linked list) is a list of integers, which hides the terrible truth
  * of the nakedness within.
  *
  * Naked Linked Lists (lec04.IntList) vs. SLLists
