@@ -9,6 +9,7 @@ import java.util.List;
 
 import static com.google.common.truth.Truth.assertThat;
 
+// how to build and use comparator
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class TestWordComparators {
 

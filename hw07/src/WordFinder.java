@@ -1,6 +1,7 @@
 import edu.princeton.cs.algs4.In;
 
 import java.util.Comparator;
+import java.util.List;
 
 public class WordFinder {
     /**
@@ -10,22 +11,27 @@ public class WordFinder {
      *  Use loops. Don't use Collections.max or similar.
      */
     public static String findMax(String[] strings, Comparator<String> c) {
-        // TODO: Implement this.
-        return null;
+        int maxIndex = 0;
+        for (int i = 1; i < strings.length; i++) {
+            int cmp = c.compare(strings[maxIndex], strings[i]);
+            if (cmp < 0) {
+                maxIndex = i;
+            }
+        }
+        return strings[maxIndex];
     }
 
     public static void main(String[] args) {
         In in = new In("data/mobydick.txt");
         String[] words = in.readAllStrings();
 
-        // TODO: Print only the word with the most lower case vowels.
-        //       Use your findMax method!
         //
         //       Start by creating a Comparator that compares based on lower case vowels.
-        Comparator<String> vowelComparator = null;
+        Comparator<String> vowelComparator = WordComparators.getCharListComparator(List.of('a', 'e', 'i', 'o', 'u'));
+        System.out.println(WordFinder.findMax(words, vowelComparator));
 
         // Optional task: Play around with lists of words from Wikipedia articles.
-        // String[] zebraWords = ParseUtils.fetchWords("https://en.wikipedia.org/wiki/zebra");
-        // System.out.println(findMax(zebraWords, vowelComparator));
+        String[] zebraWords = ParseUtils.fetchWords("https://en.wikipedia.org/wiki/zebra");
+        System.out.println(findMax(zebraWords, vowelComparator));
     }
 }

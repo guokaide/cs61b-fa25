@@ -8,6 +8,7 @@ import java.util.List;
 
 import static com.google.common.truth.Truth.assertThat;
 
+// how to use comparator as a parameter
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class TestWordFinder {
     @Test
